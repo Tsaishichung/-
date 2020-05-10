@@ -1,6 +1,5 @@
 package sort.merge;
 
-import java.util.Arrays;
 
 /**
  * MergeSort ¹é²¢ÅÅÐò
@@ -45,7 +44,7 @@ public class MergeSort {
         if(start == end){
             return;
         }
-        int mid = (start + end) / 2;
+        int mid = (start +(end - start)) >> 1;
         int[] sectionLeft = splitArr(arr, start, mid);
         int[] sectionRight = splitArr(arr, mid + 1, end);
         sort(sectionLeft, 0, sectionLeft.length - 1);
