@@ -38,7 +38,7 @@ public class QuickSort {
      * @date 2020/5/9
      * @version V1.0
      */
-    private static void sort(int[] arr, int start, int end){
+    public static void sort(int[] arr, int start, int end){
         if(start >= end){
             return;
         }
