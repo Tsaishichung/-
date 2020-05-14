@@ -40,8 +40,8 @@ public class MergeSort {
         System.out.println();
     }
 
-    private static void sort(int[] arr, int start, int end){
-        if(start == end){
+    public static void sort(int[] arr, int start, int end){
+        if(start >= end){
             return;
         }
         int mid = (start +(end - start)) >> 1;

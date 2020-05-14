@@ -10,12 +10,12 @@ package sort.radix;
 public class RadixSort {
 
     public static void main(String[] args) {
-        int[] lsdArr = new int[]{
+        /*int[] lsdArr = new int[]{
             440604110,
             924510196,
-            /*1212*/44372,
+            *//*1212*//*44372,
             512141259,
-            /*7546122*/75,
+            *//*7546122*//*75,
             661212191,
             215451258,
             644521264,
@@ -26,20 +26,39 @@ public class RadixSort {
             154523143};
         lsdSort(lsdArr, 9);
         //输出结果
-        System.out.println("排序结果：");
+        System.out.println("lsd排序结果：");
         for (int k = 0; k < lsdArr.length; k++) {
             System.out.println(" " + lsdArr[k]);
+        }*/
+
+        String[] msdArr = new String[]{
+            "gasdasddadsa",
+            "fsdfsdfsafas",
+            "fdsgdfghfdgs",
+            "asdasdasasfd",
+            "fdsfsdhfghfg",
+            "gfsfdgsdfgds",
+            "sadjghjghhfg",
+            "rtretgfdgjhf",
+            "jghkjhgdsvfc",
+            "dfgdfvxcrhef",
+            "jhyrutrfdgfd",
+            "jthjfgjhfghs"
+        };
+        msdSort(msdArr, 0, msdArr.length -1, 0);
+        //输出结果
+        System.out.println("msd排序结果：");
+        for (int k = 0; k < msdArr.length; k++) {
+            System.out.println(" " + msdArr[k]);
         }
     }
-
-
 
     /**
      * RadixSort
      * @description 基于LSD(Least-significant-digit-first)最低有效位的排序，(适合数字排序)
      * 底层基于计数排序，排序字符或数字的长度决定外层计数排序的次数，因为时间复杂度为MN(M为排序字符的长度)
      * @param arr 待排序数组
-     * @param m 字符长度
+     * @param m 最大字符长度
      * @return
      * @author caizhichong
      * @date 2020/5/13
@@ -76,18 +95,87 @@ public class RadixSort {
     }
 
 
+    /** 桶大小，如果是ASCII值则为256，UniCode为65536*/
+    private static final int BUCKET_SIZE = 256;
+    /**桶内元素大小小于等于此值则进行归并排序*/
+    private static final int MERGE_SORT_LIMIT_SIZE = 1;
+
     /**
      * RadixSort
      * @description 基于MSD(Most-significant-digit-first)最高有效位的排序，就是一种特殊的桶排序
-     *
+     * 适合字母排序。
      * @param arr 待排序数组
+     * @param start 数组范围-起始下标
+     * @param end 数组范围-终止下标
+     * @param charIndex 比较字符的位置（比较的第几个字符）
      * @return
      * @author caizhichong
      * @date 2020/5/13
      * @version V1.0
      */
-    private static void msdSort(int[] arr){
+    private static void msdSort(String[] arr, int start, int end, int charIndex){
+        if(start >= end){
+            return;
+        }
+        if((start + MERGE_SORT_LIMIT_SIZE) >= end){
+            //小于此值则进行插入排序（此处可以使用其他排序算法，必须为稳定排序算法，决定了msd radix sort是否为稳定排序算法）
+            insertionSort(arr, start, end, charIndex);
+            return;
+        }
+        //将元素统计到桶中
+        int[] bucket = new int[BUCKET_SIZE];
+        for(int i = start; i <= end; i++){
+            int pos = arr[i].charAt(charIndex);
+            bucket[pos]++;
+        }
+        //对bucket数组进行累加求和
+        int sum = bucket[0];
+        for(int i = 1; i < BUCKET_SIZE; i++){
+            bucket[i] += sum;
+            sum = bucket[i];
+        }
+        //对数据进行bucket的位置进行排序
+        String[] temp = new String[(end - start)+1];
+        for(int i = end - 1; i >= start; i--){
+            int pos = arr[i].charAt(charIndex);
+            temp[bucket[pos]-1] = arr[i];
+            bucket[pos]--;
+        }
+        //拷贝回原数组
+        for(int i = 0; i < temp.length; i++){
+            arr[start + i] = temp[i];
+        }
+        //charIndex ++ 递归继续排序
+        charIndex++;
+        int lowIndex = bucket[0];
+        for(int i = 0; i < BUCKET_SIZE; i++){
+            msdSort(arr, start + lowIndex, start + bucket[i], charIndex);
+            lowIndex = bucket[i];
+        }
+    }
 
+    private static void insertionSort(String[] arr, int start, int end, int charIndex){
+        for(int i = start + 1; i < end; i++){
+            for(int j = i; j > start; j--){
+                if(less(arr[j -1], arr[j], charIndex)){
+                    String temp = arr[j-1];
+                    arr[j-1] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+    }
+
+    private static boolean less(String prev, String next, int startIndex){
+        for(int i = startIndex; i < Math.min(prev.length(), next.length()); i++){
+            if(prev.charAt(i) < next.charAt(i)){
+                return false;
+            }
+            if(prev.charAt(i) > next.charAt(i)){
+                return true;
+            }
+        }
+        return prev.length() < next.length();
     }
 
 }

@@ -1,5 +1,6 @@
 package sort.bucket;
 
+import sort.merge.MergeSort;
 import sort.quick.QuickSort;
 
 /**
@@ -48,7 +49,8 @@ public class BucketSort {
         //对每个桶的元素进行快速排序
         for (int i = 0; i < bucketSize; i++){
             int[] bk = bucket[i];
-            QuickSort.sort(bk, 0, bucketCount[i] -1);
+            //这里使用快速排序会破坏稳定性，如果想要桶排序是稳定排序，则此处需要使用稳定排序算法
+            MergeSort.sort(bk, 0, bucketCount[i] -1);
         }
         //合并桶
         int count = 0;
