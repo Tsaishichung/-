@@ -43,7 +43,19 @@ public class RadixSort {
             "jghkjhgdsvfc",
             "dfgdfvxcrhef",
             "jhyrutrfdgfd",
-            "jthjfgjhfghs"
+            "jthjfgjhfghs",
+            "aafsdf",
+            "fhadjdfa",
+            "gfghlkqew",
+            "hfgkdl",
+            "jljkrweo",
+            "qqweqtret",
+            "yeyzzfb",
+            "nhgnllzzcbvc",
+            "nbasdxcvkjxj",
+            "nbbdasdasf",
+            "nbbafdgdf",
+            "nbbadasf"
         };
         msdSort(msdArr, 0, msdArr.length -1, 0);
         //输出结果
@@ -125,6 +137,10 @@ public class RadixSort {
         //将元素统计到桶中
         int[] bucket = new int[BUCKET_SIZE];
         for(int i = start; i <= end; i++){
+            if(charIndex >= arr[i].length()){
+                bucket[0]++;
+                return;
+            }
             int pos = arr[i].charAt(charIndex);
             bucket[pos]++;
         }
@@ -136,7 +152,12 @@ public class RadixSort {
         }
         //对数据进行bucket的位置进行排序
         String[] temp = new String[(end - start)+1];
-        for(int i = end - 1; i >= start; i--){
+        for(int i = end; i >= start; i--){
+            if(charIndex >= arr[i].length()){
+                temp[bucket[0]-1] = arr[i];
+                bucket[0]--;
+                continue;
+            }
             int pos = arr[i].charAt(charIndex);
             temp[bucket[pos]-1] = arr[i];
             bucket[pos]--;
@@ -149,13 +170,16 @@ public class RadixSort {
         charIndex++;
         int lowIndex = bucket[0];
         for(int i = 0; i < BUCKET_SIZE; i++){
-            msdSort(arr, start + lowIndex, start + bucket[i], charIndex);
+            if(bucket[i] == 0){
+                continue;
+            }
+            msdSort(arr, start + lowIndex, (start + bucket[i]) - 1, charIndex);
             lowIndex = bucket[i];
         }
     }
 
     private static void insertionSort(String[] arr, int start, int end, int charIndex){
-        for(int i = start + 1; i < end; i++){
+        for(int i = start + 1; i <= end; i++){
             for(int j = i; j > start; j--){
                 if(less(arr[j -1], arr[j], charIndex)){
                     String temp = arr[j-1];
