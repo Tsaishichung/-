@@ -1,5 +1,9 @@
 public class Main {
 
+    private String sb;
+
+    private int pdog;
+
 
     public static void main(String[] args) {
         Main main = new Main();
