@@ -1,4 +1,4 @@
-public class Main {
+public class JvmStackExample {
 
     private String sb;
 
@@ -6,7 +6,7 @@ public class Main {
 
 
     public static void main(String[] args) {
-        Main main = new Main();
+        JvmStackExample main = new JvmStackExample();
         int x = 8,y = 6;
         main.add(x, y);
         int res = main.add(x, y);

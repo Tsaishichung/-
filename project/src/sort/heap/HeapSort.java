@@ -16,7 +16,7 @@ public class HeapSort {
         heapSort(heap);
         //输出结果
         System.out.print("排序结果：");
-        for (int k = heap.length -1 ; k >= 0; k--) {
+        for (int k = heap.length -1 ; k > 0; k--) {
             System.out.print(" " + heap[k]);
         }
         System.out.println();
