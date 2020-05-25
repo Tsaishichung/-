@@ -37,5 +37,11 @@ public class ShellSort {
                 }
             }
         }
+        //输出结果
+        System.out.print("输出结果：");
+        for (int k = 0; k < arr.length; k++) {
+            System.out.print(" " + arr[k]);
+        }
+        System.out.println();
     }
 }

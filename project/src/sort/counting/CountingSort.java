@@ -11,7 +11,8 @@ public class CountingSort {
 
     public static void main(String[] args) {
         //int[] arr = new int[]{6,2,1,5,3,4};
-        int[] arr = new int[]{99,5,20,41,20,5,99,5,99,20,10,50,41};
+        //int[] arr = new int[]{99,5,20,41,20,5,99,5,99,20,10,50,41};
+        int[] arr = new int[]{1,3,1,5,2,2,5,3,3,4,4,5};
         sort(arr);
     }
 
@@ -30,12 +31,8 @@ public class CountingSort {
         //首先先找到最大元素和最小元素，确定桶排序的范围。根据负载因子确定每个桶的取值范围
         int max = arr[0], min = arr[0];
         for(int i = 1; i < arr.length; i++){
-            if(arr[i] > max){
-                max = arr[i];
-            }
-            if(arr[i] < min){
-                min = arr[i];
-            }
+            if(arr[i] > max) max = arr[i];
+            if(arr[i] < min) min = arr[i];
         }
         //计算桶数量，创建bucket桶。每个元素一个桶
         int bucketSize = (int) Math.ceil((max - min) * factor) + 1;
