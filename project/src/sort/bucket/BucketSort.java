@@ -31,12 +31,8 @@ public class BucketSort {
         //首先先找到最大元素和最小元素，确定桶排序的范围。根据负载因子确定每个桶的取值范围
         int max = arr[0], min = arr[0];
         for(int i = 1; i < arr.length; i++){
-            if(arr[i] > max){
-                max = arr[i];
-            }
-            if(arr[i] < min){
-                min = arr[i];
-            }
+            if(arr[i] > max)  max = arr[i];
+            if(arr[i] < min)min = arr[i];
         }
         //计算桶数量，创建bucket桶
         int bucketSize = (int) Math.ceil((max - min) * factor);
@@ -49,7 +45,8 @@ public class BucketSort {
         //对每个桶的元素进行快速排序
         for (int i = 0; i < bucketSize; i++){
             int[] bk = bucket[i];
-            //这里使用快速排序会破坏稳定性，如果想要桶排序是稳定排序，则此处需要使用稳定排序算法
+            //这里的桶内部排序算法决定算法是否稳定，是否原地。基于桶排序的空间复杂度为O（n），
+            // 所以桶排序本来就不是原地排序算法，这里使用同样不是原地排序，但是稳定排序的归并排序
             MergeSort.sort(bk, 0, bucketCount[i] -1);
         }
         //合并桶

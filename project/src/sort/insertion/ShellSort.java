@@ -11,7 +11,7 @@ public class ShellSort {
 
     public static void main(String[] args) {
         //int[] arr = new int[]{6,2,1,5,3,4};
-        int[] arr = new int[]{99,5,60,41,20,17,97,56,98,1,10,50,40};
+        int[] arr = new int[]{99,5,60,41,20,17,97,56,98,1,10,50,40,132,25,49,76,77,93,22};
         sort(arr);
     }
 
@@ -27,19 +27,15 @@ public class ShellSort {
      */
     private static void sort(int[] arr){
         for(int gap = arr.length >> 1; gap >= 1; gap >>= 1){
-            for(int i = 0; i < arr.length - gap; i++){
-                if(arr[i] > arr[i + gap]){
-                    int temp = arr[i];
-                    arr[i] = arr[i + gap];
-                    arr[i + gap] = temp;
+            for(int i = gap; i < arr.length; i++){
+                for(int j = i - gap; j >= 0; j -= gap){
+                    if(arr[j] > arr[j+gap]){
+                        int temp = arr[j];
+                        arr[j] = arr[j+gap];
+                        arr[j+gap] = temp;
+                    }
                 }
             }
         }
-        //输出结果
-        System.out.print("排序结果：");
-        for (int k = 0; k < arr.length; k++) {
-            System.out.print(" " + arr[k]);
-        }
-        System.out.println();
     }
 }
