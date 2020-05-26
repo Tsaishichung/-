@@ -47,7 +47,7 @@ public class CountingSort {
             sum = bucketCount[i];
         }
         int[] tempArr = new int[arr.length];
-        for (int i = 0; i < arr.length; i++){
+        for (int i = arr.length -1; i >=0 ; i--){
             tempArr[bucketCount[arr[i] - min] -1] = arr[i];
             bucketCount[arr[i] - min]--;
         }

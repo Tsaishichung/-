@@ -13,9 +13,9 @@ public class RadixSort {
         /*int[] lsdArr = new int[]{
             440604110,
             924510196,
-            *//*1212*//*44372,
+            121244372,
             512141259,
-            *//*7546122*//*75,
+            754612275,
             661212191,
             215451258,
             644521264,
@@ -32,31 +32,33 @@ public class RadixSort {
         }*/
 
         String[] msdArr = new String[]{
-            "gasdasddadsa",
-            "fsdfsdfsafas",
-            "fdsgdfghfdgs",
-            "asdasdasasfd",
-            "fdsfsdhfghfg",
-            "gfsfdgsdfgds",
-            "sadjghjghhfg",
-            "rtretgfdgjhf",
-            "jghkjhgdsvfc",
-            "dfgdfvxcrhef",
-            "jhyrutrfdgfd",
-            "jthjfgjhfghs",
-            "aafsdf",
-            "fhadjdfa",
-            "gfghlkqew",
-            "hfgkdl",
-            "jljkrweo",
-            "qqweqtret",
-            "yeyzzfb",
-            "nhgnllzzcbvc",
-            "nbasdxcvkjxj",
-            "nbbdasdasf",
-            "nbbafdgdf",
-            "nbbadasf"
+            "gasdasddadsa", "fsdfsdfsafas",
+            "fdsgdfghfdgs", "asdasdasasfd",
+            "fdsfsdhfghfg", "gfsfdgsdfgds",
+            "sadjghjghhfg", "rtretgfdgjhf",
+            "jghkjhgdsvfc", "dfgdfvxcrhef",
+            "jhyrutrfdgfd", "jthjfgjhfghs",
+            "aafsdf", "fhadjdfa",
+            "gfghlkqew", "hfgkdl",
+            "jljkrweo", "qqweqtret",
+            "yeyzzfb", "nhgnllzzcbvc",
+            "nbasdxcvkjxj", "nbbdasdasf",
+            "nbbafdgdf", "nbbadasf"
         };
+        /*String[] msdArr = new String[]{
+            "110101201910143214", "110101201810144214",
+            "44060420191024000X", "440604201910240009",
+            "440604201910240005", "44060420191024010X",
+            "11010120181014321X", "330101201910143214",
+            "450101201910141234", "34010120191014321X",
+            "450101201910143214", "123182123132512312",
+            "654121213256423123", "110101201810143214",
+            "13214651131632131X", "874212132584312132",
+            "871321212138122135", "61321321813258413X",
+            "613213218132584131", "613213218132584137",
+            "613213218132584133", "613213218132584132",
+            "613213218132584139"
+        };*/
         msdSort(msdArr, 0, msdArr.length -1, 0);
         //输出结果
         System.out.println("msd排序结果：");
