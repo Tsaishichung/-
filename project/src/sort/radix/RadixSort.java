@@ -69,7 +69,7 @@ public class RadixSort {
 
     /**
      * RadixSort
-     * @description 基于LSD(Least-significant-digit-first)最低有效位的排序，(适合数字排序)
+     * @description 基于LSD(Least-significant-digit-first)最低有效位的排序，
      * 底层基于计数排序，排序字符或数字的长度决定外层计数排序的次数，因为时间复杂度为MN(M为排序字符的长度)
      * @param arr 待排序数组
      * @param m 最大字符长度
@@ -117,7 +117,6 @@ public class RadixSort {
     /**
      * RadixSort
      * @description 基于MSD(Most-significant-digit-first)最高有效位的排序，就是一种特殊的桶排序
-     * 适合字母排序。
      * @param arr 待排序数组
      * @param start 数组范围-起始下标
      * @param end 数组范围-终止下标

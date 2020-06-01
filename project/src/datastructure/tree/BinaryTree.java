@@ -31,10 +31,13 @@ public class BinaryTree {
         Node leftRRR = new Node("d", leftRR);
         leftRR.setLeftChild(leftRRL);
         leftRR.setRightChild(leftRRR);
+        System.out.print("前序遍历：");
         Node.preTraverse(rootNode);
         System.out.println();
+        System.out.print("中序遍历：");
         Node.midTraverse(rootNode);
         System.out.println();
+        System.out.print("后序遍历：");
         Node.postTraverse(rootNode);
     }
 
