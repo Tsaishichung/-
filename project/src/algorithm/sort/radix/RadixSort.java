@@ -1,4 +1,4 @@
-package sort.radix;
+package algorithm.sort.radix;
 
 /**
  * RadixSort »ùÊıÅÅĞò

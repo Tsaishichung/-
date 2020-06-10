@@ -1,4 +1,4 @@
-package sort.insertion;
+package algorithm.sort.insertion;
 
 /**
  * ShellSort Ï£¶ûÅÅĞò

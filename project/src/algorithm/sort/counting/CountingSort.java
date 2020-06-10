@@ -1,4 +1,4 @@
-package sort.counting;
+package algorithm.sort.counting;
 
 /**
  * CountingSort ¼ÆÊıÅÅĞò

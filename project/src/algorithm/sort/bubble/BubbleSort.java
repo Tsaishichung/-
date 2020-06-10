@@ -1,4 +1,4 @@
-package sort.bubble;
+package algorithm.sort.bubble;
 
 /**
  * BubbleSort ц╟ещеепР

@@ -1,4 +1,4 @@
-package search.string;
+package algorithm.string;
 
 /**
  * RK Rabin-Karp 字符串匹配算法，基于朴素算法的hash优化

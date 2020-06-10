@@ -1,4 +1,4 @@
-package sort.selection;
+package algorithm.sort.selection;
 
 /**
  * SelectionSort —°‘Ò≈≈–Ú

@@ -1,4 +1,4 @@
-package sort.heap;
+package algorithm.sort.heap;
 
 /**
  * HeapSort ∂—≈≈–Ú

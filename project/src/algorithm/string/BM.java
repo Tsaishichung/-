@@ -1,4 +1,4 @@
-package search.string;
+package algorithm.string;
 
 /**
  * BM ×Ö·û´®Æ¥ÅäËã·¨£¨Boyer-Moore£©

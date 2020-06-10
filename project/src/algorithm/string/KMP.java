@@ -1,4 +1,4 @@
-package search.string;
+package algorithm.string;
 
 /**
  * KMP Knuth-Morris-Pratt 字符串匹配算法，与BM算法思想类似

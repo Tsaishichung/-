@@ -1,7 +1,6 @@
-package sort.bucket;
+package algorithm.sort.bucket;
 
-import sort.merge.MergeSort;
-import sort.quick.QuickSort;
+import algorithm.sort.merge.MergeSort;
 
 /**
  * BucketSort Õ∞≈≈–Ú

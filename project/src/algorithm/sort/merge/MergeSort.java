@@ -1,4 +1,4 @@
-package sort.merge;
+package algorithm.sort.merge;
 
 
 /**

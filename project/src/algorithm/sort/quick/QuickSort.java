@@ -1,4 +1,4 @@
-package sort.quick;
+package algorithm.sort.quick;
 
 /**
  * QuickSort ©ЛкыеепР

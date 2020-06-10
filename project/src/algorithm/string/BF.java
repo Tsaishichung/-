@@ -1,4 +1,4 @@
-package search.string;
+package algorithm.string;
 
 /**
  * BF ×Ö·û´®Æ¥ÅäÆÓËØËã·¨£¨Brute-Force£©,±©Á¦Æ¥Åä

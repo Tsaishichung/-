@@ -1,4 +1,4 @@
-package search.binarysearch;
+package algorithm.binarysearch;
 
 /**
  * BinarySearch ¶ş·Ö²éÕÒ
