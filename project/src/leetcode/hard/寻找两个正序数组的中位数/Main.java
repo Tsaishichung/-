@@ -13,6 +13,15 @@ public class Main {
         System.out.println(findMedianSortedArrays(new int[]{1,2},new int[]{3,4}));
     }
 
+    /**
+     * Main
+     * @description 要求时间复杂度为O(logn),当前方法为O(m+n)不满足
+     * @param
+     * @return
+     * @author caizhichong
+     * @date 2020/6/10
+     * @version V1.0
+     */
     public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
         int[] dest = new int[nums1.length + nums2.length];
         int nums1IteIndex = 0;
