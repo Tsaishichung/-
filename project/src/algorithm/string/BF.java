@@ -12,7 +12,7 @@ public class BF {
     public static void main(String[] args) {
         String source = "cbacbad";
         String target = "acb";
-        int pos = search(source, target);
+        int pos = search(source.toCharArray(), target.toCharArray());
         System.out.println(pos);
     }
 
@@ -20,19 +20,17 @@ public class BF {
     /**
      * BF
      * @description BFÆÓËØËã·¨£¬±©Á¦Æ¥Åä
-     * @param source Ô´×Ö·û´®
-     * @param target Ä¿±ê×Ö·û´®
+     * @param sourceArr Ô´×Ö·û´®
+     * @param targetArr Ä¿±ê×Ö·û´®
      * @return
      * @author caizhichong
      * @date 2020/6/10
      * @version V1.0
      */
-    private static int search(String source, String target){
-        if(source.length() == 0 || target.length() == 0 || target.length() > source.length()){
+    private static int search(char[] sourceArr, char[] targetArr){
+        if(targetArr.length == 0 || targetArr.length > sourceArr.length){
             return -1;
         }
-        char[] sourceArr = source.toCharArray();
-        char[] targetArr = target.toCharArray();
         int searchIndex = 0;
         shift:while(searchIndex <= sourceArr.length - targetArr.length){
             int sameIndex = 0;

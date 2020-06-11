@@ -12,7 +12,7 @@ public class RK {
     public static void main(String[] args) {
         String source = "cbacbad";
         String target = "bad";
-        int pos = search(source, target);
+        int pos = search(source.toCharArray(), target.toCharArray());
         System.out.println(pos);
     }
 
@@ -20,19 +20,17 @@ public class RK {
     /**
      * RK
      * @description Rabin-Karp 模式串匹配算法，（使用字母）
-     * @param source 源字符串
-     * @param target 模式串
+     * @param sourceArr 源字符串
+     * @param targetArr 模式串
      * @return
      * @author caizhichong
      * @date 2020/6/10
      * @version V1.0
      */
-    private static int search(String source, String target){
-        if(source.length() == 0 || target.length() == 0 || target.length() > source.length()){
+    private static int search(char[] sourceArr, char[] targetArr){
+        if(targetArr.length == 0 || targetArr.length > sourceArr.length){
             return -1;
         }
-        char[] sourceArr = source.toCharArray();
-        char[] targetArr = target.toCharArray();
         long targetHashCode = preProcess(targetArr,0 , targetArr.length-1);
         long sourceHashCode = preProcess(sourceArr, 0, targetArr.length-1);
         int searchIndex = 0;
