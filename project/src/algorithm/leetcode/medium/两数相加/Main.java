@@ -1,4 +1,4 @@
-package leetcode.medium.两数相加;
+package algorithm.leetcode.medium.两数相加;
 
 /**
  * Main

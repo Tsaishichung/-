@@ -1,4 +1,4 @@
-package leetcode.easy.回文数;
+package algorithm.leetcode.easy.回文数;
 
 /**
  * Main

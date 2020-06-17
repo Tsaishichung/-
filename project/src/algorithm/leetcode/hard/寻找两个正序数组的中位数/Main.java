@@ -1,4 +1,4 @@
-package leetcode.hard.寻找两个正序数组的中位数;
+package algorithm.leetcode.hard.寻找两个正序数组的中位数;
 
 /**
  * Main

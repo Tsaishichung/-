@@ -1,4 +1,4 @@
-package leetcode.easy.整数反转;
+package algorithm.leetcode.easy.整数反转;
 
 /**
  * Main
