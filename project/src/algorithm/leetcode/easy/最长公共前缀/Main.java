@@ -32,9 +32,12 @@ public class Main {
         //"flower","flow","flight"
         //"aaa","aa","aaa"
         //"aaa","aa","a"
+        //"a","aa","aaa"
         //"","aa","a"
         //"",""
-        String[] strs = new String[]{"flower","flow","flight"};
+        //"aaa","bbb","ccc"
+        //"aaa","bb","c"
+        String[] strs = new String[]{"a","aa","aaa"};
         System.out.println(longestCommonPrefix(strs));
     }
 
@@ -45,53 +48,51 @@ public class Main {
         if(strs.length == 1){
             return strs[0];
         }
-        //找到最短的字符串
-        String minLenStr = strs[0];
-        int minLenStrIndex = 0;
-        for(int i = 1; i < strs.length; i++){
-            if(strs[i].length() < minLenStr.length()){
-                minLenStr = strs[i];
-                minLenStrIndex = i;
-            }
-        }
-        //通过最短字符串构建Trie树
+        //构建Trie树
         TreeNode root = new TreeNode();
-        TreeNode currentNode = root;
-        char[] minLenStrArr = minLenStr.toCharArray();
-        for(int i = 0; i < minLenStrArr.length; i++){
-            char value = minLenStrArr[i];
-            if(currentNode.children == null){
-                currentNode.children = new TreeNode[26];
-            }
-            TreeNode children = new TreeNode(value, null, currentNode);
-            currentNode.children[hash(value)] = children;
-            currentNode = children;
-        }
         //对数组中其他的字符串构建Trie树，当某个节点有大于1个孩子节点时返回。
         int deep = 0;
+        TreeNode targetChild = null;
         strLoop:for(int i = 0; i < strs.length; i++){
-            if(i == minLenStrIndex){
-                continue strLoop;
-            }
             if(strs[i] == null || "".equals(strs[i])){
                 return "";
             }
             char[] charArr = strs[i].toCharArray();
-            currentNode = root;
-            deep = 0;
+            TreeNode currentNode = root;
+            int charDeep = 0;
             charLoop:for(int j = 0; j < charArr.length; j++){
                 TreeNode children;
-                if(currentNode.children == null || (children = currentNode.children[hash(charArr[j])]) == null){
+                if(currentNode.children == null){
+                    currentNode.children = new TreeNode[26];
+                }
+                if((children = currentNode.children[hash(charArr[j])]) == null){
+                    children = new TreeNode(charArr[j], null, currentNode, 0);
+                    currentNode.children[hash(charArr[j])] = children;
+                    currentNode.childrenSize++;
+                }
+                if(currentNode.childrenSize > 1){
+                    deep = charDeep;
+                    targetChild = currentNode;
+                    continue strLoop;
+                }
+                if(deep!=0 && charDeep == deep){
+                    continue strLoop;
+                }
+                if(j == charArr.length-1){
+                    charDeep++;
+                    deep = charDeep;
+                    targetChild = children;
                     continue strLoop;
                 }
                 currentNode = children;
-                deep++;
+                charDeep++;
+
             }
         }
-        char[] result = new char[deep + 1];
-        for(int i = deep; i >= 0; i--){
-            result[i] = currentNode.value;
-            currentNode = currentNode.parent;
+        char[] result = new char[deep];
+        for(int i = deep -1; i >= 0; i--){
+            result[i] = targetChild.value;
+            targetChild = targetChild.parent;
         }
         return new String(result);
 
@@ -105,16 +106,19 @@ class TreeNode{
 
     public char value;
 
+    public int childrenSize;
+
     public TreeNode[] children;
 
     public TreeNode parent;
 
     public TreeNode(){}
 
-    public TreeNode(char value, TreeNode[] children, TreeNode parent){
+    public TreeNode(char value, TreeNode[] children, TreeNode parent, int childrenSize){
         this.value = value;
         this.children = children;
         this.parent = parent;
+        this.childrenSize = childrenSize;
     }
 
 }
