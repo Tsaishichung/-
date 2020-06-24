@@ -70,10 +70,7 @@ public class BM {
                     continue shift;
                 }
             }
-            //如果进行了匹配之后，位移数为0，则证明完全匹配，返回匹配的起始数组下标。
-            if(shift==0){
-                return shiftIndex;
-            }
+            return shiftIndex;
         }
         return -1;
     }
