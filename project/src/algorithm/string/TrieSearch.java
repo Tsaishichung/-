@@ -11,7 +11,7 @@ public class TrieSearch {
 
     public static void main(String[] args) {
         String[] trieStrs = new String[]{"abcd","bcd","cdef","ab"};
-        String target = "abc";
+        String target = "ab";
         Trie trie = build(trieStrs);
         boolean matched = match(target.toCharArray(), trie);
         System.out.println(matched);
@@ -90,34 +90,36 @@ public class TrieSearch {
     private static int hashIndex(char c){
         return c - 'a';
     }
-}
 
-/**
- * TrieSearch
- * @description trie树
- * @author caizhichong
- * @date 2020/7/14
- * @version V1.0
- */
-class Trie{
 
-    /**字符值*/
-    char value;
+     /**
+     * TrieSearch
+     * @description trie树
+     * @author caizhichong
+     * @date 2020/7/14
+     * @version V1.0
+     */
+     private static class Trie{
 
-    /**是否结束字符*/
-    boolean isEndChar;
+        /**字符值*/
+        char value;
 
-    /**孩子节点*/
-    Trie[] children = new Trie[26];
+        /**是否结束字符*/
+        boolean isEndChar;
 
-    /**父节点*/
-    Trie parent;
+        /**孩子节点*/
+        Trie[] children = new Trie[26];
 
-    public Trie() {}
+        /**父节点*/
+        Trie parent;
 
-    public Trie(char value, boolean isEndChar, Trie parent) {
-        this.value = value;
-        this.isEndChar = isEndChar;
-        this.parent = parent;
+        public Trie() {}
+
+        public Trie(char value, boolean isEndChar, Trie parent) {
+            this.value = value;
+            this.isEndChar = isEndChar;
+            this.parent = parent;
+        }
     }
+
 }

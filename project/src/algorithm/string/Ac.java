@@ -12,4 +12,20 @@ public class Ac {
     public static void main(String[] args) {
 
     }
+
+
+
+    /**
+     * Ac
+     * @description ¹¹½¨TrieÊ÷
+     * @author caizhichong
+     * @date 2020/7/14
+     * @version V1.0
+     */
+    private static class Trie{
+
+
+
+    }
 }
+
