@@ -15,13 +15,13 @@ public class GraphMatrix {
 
     public static void main(String[] args) {
         Graph graph = buildGraph();
-        List<Integer> noInDegreeVertiexs = graph.getStartVertixIndex();
-        boolean[] visited = new boolean[graph.getVertix().length];
-        for(Integer vertix : noInDegreeVertiexs){
+        List<Integer> noInDegreeVertiexs = graph.getStartVertexIndex();
+        boolean[] visited = new boolean[graph.getVertex().length];
+        for(Integer vertex : noInDegreeVertiexs){
             //深度优先遍历
-            dfs(graph, vertix, visited);
+            //dfs(graph, vertex, visited);
             //广度优先遍历
-            //bfs(graph, vertix, visited);
+            bfs(graph, vertex, visited);
         }
     }
 
@@ -36,8 +36,8 @@ public class GraphMatrix {
      * @version V1.0
      */
     private static Graph buildGraph(){
-        /*char[] vertix = new char[]{'a','g','c','f','e','d','b'};
-        Graph graph = new Graph(vertix);
+        /*char[] vertex = new char[]{'a','g','c','f','e','d','b'};
+        Graph graph = new Graph(vertex);
         graph.addEdge('a', 'b');
         graph.addEdge('a', 'c');
         graph.addEdge('b', 'c');
@@ -48,8 +48,8 @@ public class GraphMatrix {
         graph.addEdge('d', 'f');
         graph.addEdge('e', 'f');
         graph.addEdge('g', 'f');*/
-        char[] vertix = new char[]{'a','g','c','f','e','d','b','i','h','j'};
-        Graph graph = new Graph(vertix);
+        char[] vertex = new char[]{'a','g','c','f','e','d','b','i','h','j'};
+        Graph graph = new Graph(vertex);
         graph.addEdge('a', 'b');
         graph.addEdge('a', 'c');
         graph.addEdge('b', 'g');
@@ -69,21 +69,21 @@ public class GraphMatrix {
      * GraphMatrix
      * @description 深度优先遍历
      * @param graph 图结构
-     * @param vertixIndex 当前遍历顶点下标
+     * @param vertexIndex 当前遍历顶点下标
      * @param visit 访问过的节点
      * @return
      * @author caizhichong
      * @date 2020/7/31
      * @version V1.0
      */
-    private static void dfs(Graph graph, int vertixIndex, boolean[] visit){
-        if(visit[vertixIndex]){
+    private static void dfs(Graph graph, int vertexIndex, boolean[] visit){
+        if(visit[vertexIndex]){
             return;
         }
-        visit[vertixIndex] = true;
-        System.out.println("节点:" + graph.getVertix()[vertixIndex]);
-        for(int i = 0; i < graph.getMatrix()[vertixIndex].length; i++){
-            if(graph.getMatrix()[vertixIndex][i] == 1){
+        visit[vertexIndex] = true;
+        System.out.println("节点:" + graph.getVertex()[vertexIndex]);
+        for(int i = 0; i < graph.getMatrix()[vertexIndex].length; i++){
+            if(graph.getMatrix()[vertexIndex][i] == 1){
                 dfs(graph, i, visit);
             }
         }
@@ -100,15 +100,15 @@ public class GraphMatrix {
      * @date 2020/7/31
      * @version V1.0
      */
-    private static void bfs(Graph graph, int vertixIndex, boolean[] visit) {
+    private static void bfs(Graph graph, int vertexIndex, boolean[] visit) {
         Queue<Integer> queue = new LinkedList<>();
-        queue.add(vertixIndex);
+        queue.add(vertexIndex);
         Integer node;
         while((node = queue.poll()) != null){
             if(visit[node]){
                 continue;
             }
-            System.out.println("节点：" + graph.getVertix()[node]);
+            System.out.println("节点：" + graph.getVertex()[node]);
             visit[node] = true;
             for(int i = 0; i < graph.getMatrix()[node].length; i++){
                 if(graph.getMatrix()[node][i] == 1){
@@ -133,7 +133,7 @@ class Graph{
     /**
      * 顶点
      * */
-    private char [] vertix;
+    private char [] vertex;
 
     /**
      * 用户记录每个顶点的下标位置（这里假设最多只有英文字母26个顶点）
@@ -145,16 +145,16 @@ class Graph{
      * */
     private int[][] matrix;
 
-    public Graph(char [] vertix){
-        this.vertix = vertix;
+    public Graph(char [] vertex){
+        this.vertex = vertex;
         this.init();
     }
 
     private void init(){
-        for(int i = 0; i < this.getVertix().length; i++){
-            this.charIndex[this.hashIndex(this.getVertix()[i])] = i;
+        for(int i = 0; i < this.getVertex().length; i++){
+            this.charIndex[this.hashIndex(this.getVertex()[i])] = i;
         }
-        matrix = new int[vertix.length][vertix.length];
+        matrix = new int[vertex.length][vertex.length];
         for(int i = 0; i < matrix.length; i++){
             for(int j = 0; j < matrix[i].length; j++){
                 matrix[i][j] = -1;
@@ -177,16 +177,16 @@ class Graph{
      * 简写哈希定位顶点下标
      * @version V1.0
      */
-    private int hashIndex(char vertix){
-        return vertix - 'a';
+    private int hashIndex(char vertex){
+        return vertex - 'a';
     }
 
-    public char[] getVertix() {
-        return vertix;
+    public char[] getVertex() {
+        return vertex;
     }
 
-    public void setVertix(char[] vertix) {
-        this.vertix = vertix;
+    public void setVertex(char[] vertex) {
+        this.vertex = vertex;
     }
 
     public int[][] getMatrix() {
@@ -213,17 +213,17 @@ class Graph{
      * @date 2020/11/3
      * @version V1.0
      */
-    public List<Integer> getStartVertixIndex(){
-        List<Integer> noInDegreeVertix = new LinkedList<>();
+    public List<Integer> getStartVertexIndex(){
+        List<Integer> noInDegreeVertex = new LinkedList<>();
         outer:for(int i = 0; i < this.getMatrix().length;i++){
             inner:for(int j = 0; j < this.getMatrix()[i].length; j++){
                 if(this.getMatrix()[j][i] == 1){
                     continue outer;
                 }
             }
-            noInDegreeVertix.add(i);
+            noInDegreeVertex.add(i);
         }
-        return noInDegreeVertix;
+        return noInDegreeVertex;
     }
 
 }

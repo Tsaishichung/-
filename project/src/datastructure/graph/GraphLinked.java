@@ -15,13 +15,13 @@ public class GraphLinked {
 
     public static void main(String[] args) {
         GraphA graph = buildGraph();
-        List<Integer> noInDegreeVertix = graph.getVertix();
+        List<Integer> noInDegreeVertex = graph.getVertex();
         boolean[] visited = new boolean[graph.getNodes().length];
-        for(Integer vertixIndex : noInDegreeVertix){
+        for(Integer vertexIndex : noInDegreeVertex){
             //深度优先遍历
-            //dfs(graph, vertixIndex, visited);
+            dfs(graph, vertexIndex, visited);
             //广度优先遍历
-            bfs(graph, vertixIndex, visited);
+            //bfs(graph, vertexIndex, visited);
         }
 
 
@@ -32,23 +32,23 @@ public class GraphLinked {
      * GraphLinked
      * @description 深度优先遍历
      * @param graphA 图
-     * @param vertixIndex 当前顶点下标
+     * @param vertexIndex 当前顶点下标
      * @param visited 顶点遍历情况
      * @return
      * @author caizhichong
      * @date 2020/11/4
      * @version V1.0
      */
-    private static void dfs(GraphA graphA, Integer vertixIndex, boolean[] visited){
-        if(visited[vertixIndex]){
+    private static void dfs(GraphA graphA, Integer vertexIndex, boolean[] visited){
+        if(visited[vertexIndex]){
             return;
         }
-        visited[vertixIndex] = true;
-        System.out.println("节点：" + graphA.getNodes()[vertixIndex].getValue());
-        Vertix vertix = graphA.getNodes()[vertixIndex];
-        Node currentNode = vertix.getHead();
+        visited[vertexIndex] = true;
+        System.out.println("节点：" + graphA.getNodes()[vertexIndex].getValue());
+        Vertex vertex = graphA.getNodes()[vertexIndex];
+        Vertex currentNode = vertex.getNext();
         while(currentNode != null){
-            dfs(graphA, graphA.getVertixIndexByNodeValue(currentNode.getValue()), visited);
+            dfs(graphA, graphA.getVertexIndexByNodeValue(currentNode.getValue()), visited);
             currentNode = currentNode.getNext();
         }
     }
@@ -57,27 +57,27 @@ public class GraphLinked {
      * GraphLinked
      * @description 广度优先遍历
      * @param graphA 图
-     * @param vertixIndex 当前顶点下标
+     * @param vertexIndex 当前顶点下标
      * @param visited 顶点遍历情况
      * @return
      * @author caizhichong
      * @date 2020/11/4
      * @version V1.0
      */
-    private static void bfs(GraphA graphA, Integer vertixIndex, boolean[] visited){
-        Queue<Vertix> queue = new LinkedList<>();
-        Vertix rootVertix = graphA.getNodes()[vertixIndex];
-        queue.add(rootVertix);
-        Vertix currentVertix;
-        while((currentVertix = queue.poll()) != null){
-            if(visited[graphA.getVertixIndexByNodeValue(currentVertix.getValue())]){
+    private static void bfs(GraphA graphA, Integer vertexIndex, boolean[] visited){
+        Queue<Vertex> queue = new LinkedList<>();
+        Vertex rootVertex = graphA.getNodes()[vertexIndex];
+        queue.add(rootVertex);
+        Vertex currentVertex;
+        while((currentVertex = queue.poll()) != null){
+            if(visited[graphA.getVertexIndexByNodeValue(currentVertex.getValue())]){
                 continue;
             }
-            visited[graphA.getVertixIndexByNodeValue(currentVertix.getValue())] = true;
-            System.out.println("节点：" + currentVertix.getValue());
-            Node currentNode = currentVertix.getHead();
+            visited[graphA.getVertexIndexByNodeValue(currentVertex.getValue())] = true;
+            System.out.println("节点：" + currentVertex.getValue());
+            Vertex currentNode = currentVertex.getNext();
             while(currentNode != null){
-                queue.add(graphA.getVertixByNodeValue(currentNode.getValue()));
+                queue.add(graphA.getVertexByNodeValue(currentNode.getValue()));
                 currentNode = currentNode.getNext();
             }
         }
@@ -87,8 +87,8 @@ public class GraphLinked {
 
 
     public static GraphA buildGraph(){
-        char[] vertix = new char[]{'a','g','c','f','e','d','b'};
-        GraphA graph = new GraphA(vertix);
+        /*char[] vertex = new char[]{'a','g','c','f','e','d','b'};
+        GraphA graph = new GraphA(vertex);
         graph.addEdge('a', 'b');
         graph.addEdge('a', 'c');
         graph.addEdge('b', 'c');
@@ -98,9 +98,9 @@ public class GraphLinked {
         graph.addEdge('d', 'e');
         graph.addEdge('d', 'f');
         graph.addEdge('e', 'f');
-        graph.addEdge('g', 'f');
-        /*char[] vertix = new char[]{'a','g','c','f','e','d','b','i','h','j'};
-        GraphA graph = new GraphA(vertix);
+        graph.addEdge('g', 'f');*/
+        char[] vertex = new char[]{'a','g','c','f','e','d','b','i','h','j'};
+        GraphA graph = new GraphA(vertex);
         graph.addEdge('a', 'b');
         graph.addEdge('a', 'c');
         graph.addEdge('b', 'g');
@@ -111,7 +111,7 @@ public class GraphLinked {
         graph.addEdge('d', 'e');
         graph.addEdge('e', 'i');
         graph.addEdge('c', 'g');
-        graph.addEdge('b', 'f');*/
+        graph.addEdge('b', 'f');
         return graph;
     }
 
@@ -130,12 +130,12 @@ class GraphA{
     /**
      * 邻接表
      * */
-    private Vertix[] nodes;
+    private Vertex[] nodes;
 
     /**
      * 逆邻接表
      * */
-    private Vertix[] reverseNodes;
+    private Vertex[] reverseNodes;
 
     /**
      * 节点下标位置,模拟最多只有英文字母26个节点
@@ -144,21 +144,21 @@ class GraphA{
 
     public GraphA(char[] nodes) {
         super();
-        this.buildVertix(nodes);
+        this.buildVertex(nodes);
     }
-    private void buildVertix(char[] nodes){
-        this.nodes = new Vertix[nodes.length];
-        this.reverseNodes = new Vertix[nodes.length];
+    private void buildVertex(char[] nodes){
+        this.nodes = new Vertex[nodes.length];
+        this.reverseNodes = new Vertex[nodes.length];
         for(int i = 0; i < nodes.length; i++){
             //存放顶点的下标
-            this.nodeIndex[this.getVertixIndex(nodes[i])] = i;
-            this.nodes[i] = new Vertix(nodes[i], null);
-            this.reverseNodes[i] = new Vertix(nodes[i], null);
+            this.nodeIndex[this.getVertexIndex(nodes[i])] = i;
+            this.nodes[i] = new Vertex(nodes[i], null);
+            this.reverseNodes[i] = new Vertex(nodes[i], null);
         }
     }
 
     public void addEdge(char from, char to){
-        this.buildVertix(from, to);
+        this.buildVertex(from, to);
     }
 
     /**
@@ -170,8 +170,8 @@ class GraphA{
      * @date 2020/11/9
      * @version V1.0
      */
-    public Vertix getVertixByNodeValue(char ch){
-        return this.getNodes()[this.getVertixIndexByNodeValue(ch)];
+    public Vertex getVertexByNodeValue(char ch){
+        return this.getNodes()[this.getVertexIndexByNodeValue(ch)];
     }
 
 
@@ -185,8 +185,8 @@ class GraphA{
      * @date 2020/11/9
      * @version V1.0
      */
-    public int getVertixIndexByNodeValue(char ch){
-        return this.getNodeIndex()[this.getVertixIndex(ch)];
+    public int getVertexIndexByNodeValue(char ch){
+        return this.getNodeIndex()[this.getVertexIndex(ch)];
     }
 
     /**
@@ -197,53 +197,53 @@ class GraphA{
      * @date 2020/11/4
      * @version V1.0
      */
-    public List<Integer> getVertix(){
-        List<Integer> noInDegreeVertix = new LinkedList<>();
+    public List<Integer> getVertex(){
+        List<Integer> noInDegreeVertex = new LinkedList<>();
         for(int i = 0; i < this.reverseNodes.length; i++){
-            if(this.reverseNodes[i].getHead() == null){
-                noInDegreeVertix.add(i);
+            if(this.reverseNodes[i].getNext() == null){
+                noInDegreeVertex.add(i);
             }
         }
-        return noInDegreeVertix;
+        return noInDegreeVertex;
     }
 
 
-    private void buildVertix(char from, char to){
+    private void buildVertex(char from, char to){
         // need to validate parameter
-        Vertix fromVertix = this.nodes[this.nodeIndex[this.getVertixIndex(from)]];
-        Vertix toVertix = this.reverseNodes[this.nodeIndex[this.getVertixIndex(to)]];
+        Vertex fromVertex = this.nodes[this.nodeIndex[this.getVertexIndex(from)]];
+        Vertex toVertex = this.reverseNodes[this.nodeIndex[this.getVertexIndex(to)]];
         //构建邻接表
-        Node fromHead = fromVertix.getHead();
-        Node fromNewHead = new Node(toVertix.getValue(),null);
+        Vertex fromHead = fromVertex.getNext();
+        Vertex fromNewHead = new Vertex(toVertex.getValue(),null);
         fromNewHead.setNext(fromHead);
-        fromVertix.setHead(fromNewHead);
+        fromVertex.setNext(fromNewHead);
         //构建逆邻接表
-        Node toHead = toVertix.getHead();
-        Node toNewHead = new Node(fromVertix.getValue(), null);
+        Vertex toHead = toVertex.getNext();
+        Vertex toNewHead = new Vertex(fromVertex.getValue(), null);
         toNewHead.setNext(toHead);
-        toVertix.setHead(toNewHead);
-        this.nodes[this.nodeIndex[this.getVertixIndex(from)]] = fromVertix;
-        this.reverseNodes[this.nodeIndex[this.getVertixIndex(to)]] = toVertix;
+        toVertex.setNext(toNewHead);
+        this.nodes[this.nodeIndex[this.getVertexIndex(from)]] = fromVertex;
+        this.reverseNodes[this.nodeIndex[this.getVertexIndex(to)]] = toVertex;
     }
 
 
-    public int getVertixIndex(char vertix){
-        return vertix - 'a';
+    public int getVertexIndex(char vertex){
+        return vertex - 'a';
     }
 
-    public Vertix[] getNodes() {
+    public Vertex[] getNodes() {
         return nodes;
     }
 
-    public void setNodes(Vertix[] nodes) {
+    public void setNodes(Vertex[] nodes) {
         this.nodes = nodes;
     }
 
-    public Vertix[] getReverseNodes() {
+    public Vertex[] getReverseNodes() {
         return reverseNodes;
     }
 
-    public void setReverseNodes(Vertix[] reverseNodes) {
+    public void setReverseNodes(Vertex[] reverseNodes) {
         this.reverseNodes = reverseNodes;
     }
 
@@ -256,7 +256,7 @@ class GraphA{
     }
 }
 
-class Vertix{
+class Vertex{
 
     /**
      * 值
@@ -264,47 +264,11 @@ class Vertix{
     private char value;
 
     /**
-     * 头结点
+     * 邻接表后继节点
      * */
-    private Node head;
+    private Vertex next;
 
-    public Vertix(char value, Node head) {
-        this.value = value;
-        this.head = head;
-    }
-
-    public char getValue() {
-        return value;
-    }
-
-    public void setValue(char value) {
-        this.value = value;
-    }
-
-    public Node getHead() {
-        return head;
-    }
-
-    public void setHead(Node head) {
-        this.head = head;
-    }
-}
-
-
-/**
- * GraphLinked
- * @description 单链表
- * @author caizhichong
- * @date 2020/11/3
- * @version V1.0
- */
-class Node{
-
-    private char value;
-
-    private Node next;
-
-    public Node(char value, Node next) {
+    public Vertex(char value, Vertex next) {
         this.value = value;
         this.next = next;
     }
@@ -317,11 +281,12 @@ class Node{
         this.value = value;
     }
 
-    public Node getNext() {
+    public Vertex getNext() {
         return next;
     }
 
-    public void setNext(Node next) {
+    public void setNext(Vertex next) {
         this.next = next;
     }
 }
+
