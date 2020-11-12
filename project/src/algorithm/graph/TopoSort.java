@@ -15,16 +15,21 @@ public class TopoSort {
 
     public static void main(String[] args) {
         Graph graph = buildGraph();
-        //dfs topo sort
-        //dfsTopoSort(graph, vertexQueue, vertexIndexList.get(i), visited);
+        int[] visited = new int[graph.getNodes().length];
+        //首先找到邻接表中没有入度的节点作为深度优先遍历的起始节点进行拓扑排序
+        List<Integer> reverseStartVertex = graph.getStartNodes();
+        for(Integer vertexIndex : reverseStartVertex){
+            //dfs topo sort
+            dfsTopoSort(graph, vertexIndex, visited);
+        }
         //kahn topo sort
-        kahnTopoSort(graph);
+        //kahnTopoSort(graph);
     }
 
     
     /**
      * TopoSort
-     * @description kahn 拓扑排序
+     * @description kahn 拓扑排序（可以验证是否存在环）
      * @param graph 图结构
      * @return
      * @author caizhichong
@@ -58,9 +63,8 @@ public class TopoSort {
 
     /**
      * TopoSort
-     * @description 基于逆邻接表的深度优先拓扑排序
+     * @description 基于逆邻接表的深度优先拓扑排序(基于有向无环图，无法验证是否存在环)
      * @param graph 图结构
-     * @param vertexQueue 输出顶点
      * @param nodeIndex 当前节点下标
      * @param visited 访问的节点数组
      * @return
@@ -68,12 +72,17 @@ public class TopoSort {
      * @date 2020/11/10
      * @version V1.0
      */
-    private static void dfsTopoSort(Graph graph, Queue<Character> vertexQueue, int nodeIndex, boolean[] visited){
-        if(visited[nodeIndex]){
+    private static void dfsTopoSort(Graph graph, int nodeIndex, int[] visited){
+        if(visited[nodeIndex] == 1){
             return;
         }
-        visited[nodeIndex] = true;
-
+        visited[nodeIndex]++;
+        Vertex currentVerext = graph.getReverseNodes()[nodeIndex].getNext();
+        while(currentVerext != null){
+            dfsTopoSort(graph, graph.getVertexIndex(currentVerext.getValue()), visited);
+            currentVerext = currentVerext.getNext();
+        }
+        System.out.println("节点：" + graph.getReverseNodes()[nodeIndex].getValue());
     }
 
 
@@ -91,7 +100,7 @@ public class TopoSort {
         graph.addEdge('e','f');
         graph.addEdge('e','h');
         graph.addEdge('e','i');
-        graph.addEdge('h','e');
+        //graph.addEdge('h','e');
         graph.addEdge('h','i');
         return graph;
     }
@@ -162,7 +171,7 @@ class Graph {
         Vertex newFromHead = new Vertex(to, null);
         newFromHead.setNext(fromHead);
         fromVertex.setNext(newFromHead);
-        Vertex toVertex = this.getVertex(to);
+        Vertex toVertex = this.getReverseVertex(to);
         Vertex toHead = toVertex.getNext();
         Vertex newToHead = new Vertex(from, null);
         newToHead.setNext(toHead);
@@ -197,6 +206,26 @@ class Graph {
     public Vertex getVertex(char ch){
         return this.nodes[this.getVertexIndex(ch)];
     }
+
+
+    /**
+     * Graph
+     * @description 获取邻接表所有没有入度的顶点
+     * @return
+     * @author caizhichong
+     * @date 2020/11/12
+     * @version V1.0
+     */
+    public List<Integer> getStartNodes(){
+        List<Integer> nodeList = new LinkedList<>();
+        for(int i = 0; i < this.getNodes().length; i++){
+            if(this.getNodes()[i].getNext() == null){
+                nodeList.add(i);
+            }
+        }
+        return nodeList;
+    }
+
 
 
     /**
