@@ -13,9 +13,10 @@ public class KnapsackProblem {
         //1.定义背包总质量
         int totalWeight = 100;
         //2.定义各个物品的重量
-        int[] items = new int[]{12, 23, 34, 45, 56, 67, 78, 87, 90, 1};//bug
+        //int[] items = new int[]{12, 23, 34, 45, 56, 67, 78, 87, 90, 1};//bug
         //int[] items = new int[]{14, 27, 25, 33, 40, 10, 50, 9, 8, 11};
-        //int[] items = new int[]{9, 15, 7, 22, 14, 2, 33, 11, 6, 10};
+        //int[] items = new int[]{8, 13, 5, 20, 12, 1, 31, 9, 4, 8};
+        int[] items = new int[]{55, 43, 53, 47, 41};
         //3.回溯穷举
         int maxWeight = knapsack(totalWeight, items, 0,0,  0);
         System.out.println("最大重量：" + maxWeight);
