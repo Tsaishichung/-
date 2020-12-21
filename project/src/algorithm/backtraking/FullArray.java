@@ -13,11 +13,11 @@ import java.util.List;
 public class FullArray {
 
     public static void main(String[] args) {
+        //给定一个 没有重复 数字的序列，返回其所有可能的全排列。
         //已通过leetcode（中国）46. 全排列
         //执行结果：通过
-        //执行用时：2 ms, 在所有 Java 提交中击败了71.42%的用户
-        //内存消耗：38.6 MB, 在所有 Java 提交中击败了89.05%的用户
-        //给定一个 没有重复 数字的序列，返回其所有可能的全排列。
+        //执行用时：1 ms, 在所有 Java 提交中击败了98.70%的用户
+        //内存消耗：38.6 MB, 在所有 Java 提交中击败了87.42%的用户
         // 1 2 3 4 5 -- 前3位固定，最后2位排序
         // 1 2 3 5 4 -- 前3位固定，最后2位排序
         // 1 2 4 5 3 -- 前2位固定，最后3位排序
@@ -58,7 +58,7 @@ public class FullArray {
 
     private static List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> resultList = new ArrayList<>();
-        fullArray(nums, 0, new boolean[nums.length], resultList, null);
+        fullArray(nums, 0, new boolean[nums.length], resultList, new ArrayList<>());
         return resultList;
     }
 
@@ -76,10 +76,6 @@ public class FullArray {
      * @version V1.0
      */
     private static void fullArray(int[] array, int count, boolean[] visited, List<List<Integer>> resultList, List<Integer> result){
-        //结果集为空则初始化
-        if(result == null){
-            result = new ArrayList<>();
-        }
         //递归终止条件(所有节点均已访问过了)
         if(count == array.length){
             resultList.add(new ArrayList<>(result));
@@ -90,7 +86,7 @@ public class FullArray {
                 continue;
             }
             //对第count位赋值
-            if(result.isEmpty() || result.size() < count + 1 ||  result.get(count) == null){
+            if(result.size() < count + 1){
                 result.add(array[i]);
             }else{
                 result.set(count, array[i]);
