@@ -15,8 +15,8 @@ public class Steps {
 
     public static void main(String[] args) {
         List<List<Integer>> resultList = new ArrayList<>();
-        //在你面前有一个n阶的楼梯(n>=100且n<500)，你一步只能上1阶或3阶。（小米笔试题）
-        System.out.println(fibonacci(new BigInteger[101], 100, 0, BigInteger.ZERO, resultList, new ArrayList<>(), 0).toString());
+        //在你面前有一个n阶的楼梯(n>=100且n<500)，你一步只能上1阶或2阶。（小米笔试题）
+        System.out.println(step(new BigInteger[31], 30, 0, BigInteger.ZERO, resultList, new ArrayList<>(), 0).toString());
         for(List<Integer> result : resultList){
             for(Integer step : result){
                 System.out.print(step + " ");
@@ -39,7 +39,7 @@ public class Steps {
      * @date 2020/12/28
      * @version V1.0
      */
-    private static BigInteger fibonacci(BigInteger[] mem, int steps, int cSteps, BigInteger cWays, List<List<Integer>> resultList, List<Integer> result, int cIndex){
+    private static BigInteger step(BigInteger[] mem, int steps, int cSteps, BigInteger cWays, List<List<Integer>> resultList, List<Integer> result, int cIndex){
         if(cSteps <= steps && mem[cSteps] != null){
             return mem[cSteps];
         }
@@ -60,16 +60,16 @@ public class Steps {
             }else{
                 result.set(cIndex,1);
             }
-            wayHalf1 = fibonacci(mem, steps, cSteps + 1, cWays, resultList, result, cIndex + 1);
+            wayHalf1 = step(mem, steps, cSteps + 1, cWays, resultList, result, cIndex + 1);
         }
         //走三步
-        if(cSteps + 3 <= steps){
+        if(cSteps + 2 <= steps){
             if(result.size() < cIndex + 1){
-                result.add(cIndex,3);
+                result.add(cIndex,2);
             }else{
-                result.set(cIndex,3);
+                result.set(cIndex,2);
             }
-            WayHalf2 = fibonacci(mem, steps, cSteps + 3, cWays, resultList, result, cIndex + 1);
+            WayHalf2 = step(mem, steps, cSteps + 2, cWays, resultList, result, cIndex + 1);
         }
         BigInteger totalWay = wayHalf1.add(WayHalf2);
         mem[cSteps] = totalWay;
